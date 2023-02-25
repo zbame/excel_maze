@@ -1,10 +1,10 @@
 ' 迷路を生成して、迷うこと無く解く
 
 ' 迷路を入れる2次元配列
-' mazeMatriz(1,1) が迷路内での現在地の場合
-' mazeMatrix(0,0): 左上の柱　mazeMatrix(1,0): 上の壁　mazeMatrix(2,0): 右上の柱
-' mazeMatrix(0,1): 左の壁　　mazeMatrix(1,1): 現在地　mazeMatrix(2,1): 右の壁
-' mazeMatrix(0,2): 左下の柱　mazeMatrix(1,2): 下の壁　mazeMatrix(2,2): 右下の柱
+' mazeMatriz(2,2) が迷路内での現在地の場合
+' mazeMatrix(1,1): 左上の柱　mazeMatrix(2,1): 上の壁　mazeMatrix(3,1): 右上の柱
+' mazeMatrix(1,2): 左の壁　　mazeMatrix(2,2): 現在地　mazeMatrix(3,2): 右の壁
+' mazeMatrix(1,3): 左下の柱　mazeMatrix(2,3): 下の壁　mazeMatrix(3,3): 右下の柱
 ' 現在地を移動するときは２つ飛びで上下左右に移動する
 ' 柱と壁に '1' または '2' をセットする
 ' 壁の値は描画する時に参照する（解くときには使用されない）
@@ -71,10 +71,10 @@ Private Sub initializeMaze(ByVal x As Integer, ByVal y As Integer)
         Next jj
     Next ii
     
-    ' 入り口の壁を 0 に設定する
+    ' 入り口の壁を '0' に設定する
     mazeMatrix(1, 2) = 0
     
-    ' 出口の壁を 0 に設定する
+    ' 出口の壁を '0' に設定する
     mazeMatrix(sizeX * 2 + 1, sizeY * 2) = 0
 End Sub
 
@@ -148,7 +148,7 @@ Private Sub moveWallLeft()
     currentPoleX = currentPoleX - 1
 End Sub
 
-' 壁をランダムな方向へ伸ばす 。
+' 壁をランダムな方向へ伸ばす
 ' 伸ばすことができない場合 1 を返す
 Private Function buildWall() As Integer
     buildWall = 0
@@ -378,7 +378,7 @@ Private Sub viewMaze()
     ' 全てのセルの塗りを消去
     Cells.Interior.Pattern = xlNone
     
-    '全てのセルの罫線を消去
+    ' 全てのセルの罫線を消去
     Cells.Borders.LineStyle = xlNone
     
     ' 迷路を表示するセルの高さを 22px にする
@@ -498,10 +498,10 @@ End Function
 Private Function initDirection() As Integer
     Select Case pole()
         Case 2
-            ' '2'の柱が3本の場合は最初の進行方向を下にする
+            ' '2'の柱が2本の場合は最初の進行方向を下にする
             direction = 3
         Case 3
-            ' '2'の柱が2本の場合は最初の進行方向を右にする
+            ' '2'の柱が3本の場合は最初の進行方向を右にする
             direction = 2
     End Select
 End Function
